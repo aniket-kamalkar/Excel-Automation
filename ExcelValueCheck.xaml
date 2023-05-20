@@ -5,7 +5,7 @@
   <VisualBasic.Settings>
     <x:Null />
   </VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>674,1710</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>674,1907</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ExcelValueCheck_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -96,7 +96,7 @@
       <AssemblyReference>System.Collections</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="ExcelValueCheck" sap:VirtualizedContainerService.HintSize="572,1645" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Here we are reading the excel which is kept in the Data folder.&#xD;&#xA;1)  User can provide the input value which you want to check the count and coulun name.&#xD;&#xA;&#xD;&#xA;2) If user do not provide value then it will take  values and column by itself and provide the count.  " DisplayName="ExcelValueCheck" sap:VirtualizedContainerService.HintSize="572,1842" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:Int32" Name="ValueCount" />
       <Variable x:TypeArguments="sd:DataTable" Name="Filtered_Dt" />
@@ -107,6 +107,7 @@
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:ReadRange AddHeaders="True" DataTable="[Op_Dt]" DisplayName="Read - Test Excel" sap:VirtualizedContainerService.HintSize="510,88" sap2010:WorkflowViewState.IdRef="ReadRange_1" SheetName="Sheet1" WorkbookPath="[in_TestExcelPath]">
@@ -126,9 +127,9 @@
         <OutArgument x:TypeArguments="x:String">[ColumnName]</OutArgument>
       </ui:InputDialog.Result>
     </ui:InputDialog>
-    <If Condition="[String.IsNullOrEmpty(UserInput) Or String.IsNullOrEmpty(ColumnName)]" sap:VirtualizedContainerService.HintSize="510,723" sap2010:WorkflowViewState.IdRef="If_1">
+    <If Condition="[String.IsNullOrEmpty(UserInput) Or String.IsNullOrEmpty(ColumnName)]" sap:VirtualizedContainerService.HintSize="510,973" sap2010:WorkflowViewState.IdRef="If_1">
       <If.Then>
-        <Sequence sap:VirtualizedContainerService.HintSize="476,170" sap2010:WorkflowViewState.IdRef="Sequence_4">
+        <Sequence sap:VirtualizedContainerService.HintSize="476,295" sap2010:WorkflowViewState.IdRef="Sequence_4">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -142,10 +143,11 @@
               <InArgument x:TypeArguments="x:Int32">[Op_Dt.Select("[First Name]='Aniket'").Count]</InArgument>
             </Assign.Value>
           </Assign>
+          <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" AutoCloseAfter="00:00:00" DisplayName="Output Message Box" sap:VirtualizedContainerService.HintSize="434,85" sap2010:WorkflowViewState.IdRef="MessageBox_2" Text="[&quot;Aniket Value Count - &quot;+ValueCount.ToString]" />
         </Sequence>
       </If.Then>
       <If.Else>
-        <Sequence sap:VirtualizedContainerService.HintSize="476,371" sap2010:WorkflowViewState.IdRef="Sequence_5">
+        <Sequence sap:VirtualizedContainerService.HintSize="476,496" sap2010:WorkflowViewState.IdRef="Sequence_5">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -178,9 +180,9 @@
               <InArgument x:TypeArguments="x:Int32">[Filtered_Dt.RowCount]</InArgument>
             </Assign.Value>
           </Assign>
+          <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" AutoCloseAfter="00:00:00" DisplayName="Output Message Box" sap:VirtualizedContainerService.HintSize="434,85" sap2010:WorkflowViewState.IdRef="MessageBox_1" Text="[UserInput + &quot; Value Count -&quot;+ValueCount.ToString]" />
         </Sequence>
       </If.Else>
     </If>
-    <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" AutoCloseAfter="00:00:00" DisplayName="Output Message Box" sap:VirtualizedContainerService.HintSize="510,85" sap2010:WorkflowViewState.IdRef="MessageBox_1" Text="[&quot;Value Count -&quot;+ValueCount.ToString]" />
   </Sequence>
 </Activity>
